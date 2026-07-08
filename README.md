@@ -1,35 +1,104 @@
-# IoT-Based CO2 Detection System using MQ-135 Gas Sensor
+# 🌿 IoT-Based CO₂ Detection System using MQ-135 Gas Sensor
 
-[cite_start]Poor indoor air quality is a growing concern in schools, laboratories, homes, and offices[cite: 15]. [cite_start]When CO₂ levels rise above safe limits, occupants can experience fatigue, headaches, and reduced cognitive function[cite: 17]. 
+Poor indoor air quality is a growing concern in schools, laboratories, homes, and offices. When CO₂ levels rise above safe limits, occupants can experience fatigue, headaches, and reduced cognitive function.
 
-[cite_start]This project provides a low-cost IoT solution to identify and address this issue[cite: 24]. [cite_start]It utilizes an MQ-135 gas sensor interfaced with an Arduino UNO R4 WiFi to read analog gas concentrations and classify them into three levels: Clean, Moderate, and High CO₂[cite: 24, 25]. [cite_start]The system provides simple visual indications on the onboard 8x12 LED matrix using intuitive symbols (✔ for fresh air, ⚠ for moderate, and ❌ for high CO₂) without requiring a computer screen[cite: 20, 25]. [cite_start]Data is also logged to the Serial Monitor for analysis[cite: 26].
+This project provides a low-cost IoT solution for monitoring indoor air quality using an **MQ-135 Gas Sensor** and an **Arduino UNO R4 WiFi**. The sensor continuously measures air quality and classifies it into three categories:
+
+- ✔ **Clean Air**
+- ⚠ **Moderate CO₂**
+- ❌ **High CO₂**
+
+The result is displayed directly on the **built-in 8×12 LED Matrix** of the Arduino UNO R4 WiFi, eliminating the need for an external display. Sensor readings are also printed to the **Serial Monitor** for logging and analysis.
+
+---
 
 ## 🛠️ Hardware Requirements
-* [cite_start]Arduino UNO R4 WiFi [cite: 30]
-* [cite_start]MQ-135 Gas Sensor [cite: 40]
-* Breadboard & Jumper Wires
+
+- 1 Arduino UNO R4 WiFi
+- 1 MQ-135 Gas Sensor
+- 1 Breadboard
+- 3-6 Jumper Wires
+
+---
 
 ## 🔌 Circuit Connections
-[cite_start]Make the following connections between your MQ-135 sensor and the Arduino UNO R4 WiFi[cite: 46]:
 
-| MQ-135 Pin | Arduino Pin | Reason |
-| :--- | :--- | :--- |
-| **VCC** | 5V | [cite_start]Powers the sensor heater element (~150mA draw) [cite: 46] |
-| **GND** | GND | [cite_start]Common ground connection [cite: 46] |
-| **A0 (Analog Out)** | A0 (Analog In) | [cite_start]Outputs 0-5V proportional to gas concentration [cite: 46] |
-| **D0 (Digital Out)**| *Not connected* | [cite_start]Onboard comparator; unused in this project [cite: 46] |
+Connect the MQ-135 sensor to the Arduino UNO R4 WiFi as follows:
 
-*(Replace the link below with your Fritzing circuit diagram screenshot)*
-![Circuit Diagram](link-to-your-circuit-screenshot.png)
+| MQ-135 Pin | Arduino Pin | Purpose |
+|------------|-------------|---------|
+| **VCC** | **5V** | Powers the sensor |
+| **GND** | **GND** | Common ground |
+| **A0 (Analog Out)** | **A0** | Reads analog gas values |
+| **D0 (Digital Out)** | *Not Connected* | Not used in this project |
+
+## Circuit diagram
+<img width="931" height="564" alt="image" src="https://github.com/user-attachments/assets/167c4cfa-11c5-4b24-9e63-e17695e78016" />
+
+---
 
 ## 💻 Software Requirements
-* [cite_start]**Arduino IDE 2.x:** Code editor, compiler, and uploader[cite: 49].
-* [cite_start]**Arduino_LED_Matrix.h:** Built-in library to control the 8x12 LED matrix on the Arduino UNO R4 WiFi[cite: 49].
 
-## 🚀 How to Use the Code
+- Arduino IDE 2.x
+- Arduino_LED_Matrix library (built into Arduino UNO R4 WiFi board package)
 
-This repository contains two separate code versions calibrated for different testing environments. 
+---
 
-1. Clone this repository to your local machine:
-   ```bash
-   git clone [https://github.com/Parima15-creator/IoT-CO2-Detection-System.git](https://github.com/Parima15-creator/IoT-CO2-Detection-System.git)
+## 🚀 Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Parima15-creator/IoT-CO2-Detection-System.git
+```
+
+### 2. Open the Project
+
+Open the required `.ino` file in the Arduino IDE.
+
+### 3. Select the Board
+
+- **Board:** Arduino UNO R4 WiFi
+- **Port:** Select the COM port connected to your Arduino.
+
+### 4. Upload the Code
+
+Click **Upload** and wait for the sketch to be flashed onto the board.
+
+### 5. Monitor the Output
+
+- Open the **Serial Monitor** (9600 baud).
+- Observe the LED Matrix for real-time air quality status.
+
+---
+
+## 📊 Air Quality Indicators
+
+| LED Symbol | Status | Description |
+|------------|--------|-------------|
+| ✔ | Clean | Fresh air quality |
+| ⚠ | Moderate | Ventilation recommended |
+| ❌ | High CO₂ | Poor air quality; improve ventilation immediately |
+
+---
+
+## 📁 Project Structure
+
+```
+IoT-CO2-Detection-System/
+│
+├── Code/
+│   ├── Mouth Breath CO2 testing
+│   └── Other Substances
+│
+├── docs/
+│
+├── README.md
+└── LICENSE
+```
+
+---
+
+## 👨‍💻 Author
+
+**Parima Tendulkar**
