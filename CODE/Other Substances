@@ -1,0 +1,69 @@
+#include "Arduino_LED_Matrix.h"
+ArduinoLEDMatrix matrix;
+int gasSensor = A0;
+int gasValue  = 0;
+
+// ---------- CHECK MARK (Clean Air) ----------
+uint8_t checkMark[8][12] = {
+  {0,0,0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,0,0,0,1,0,0,0,0,0},
+  {0,0,0,0,0,1,1,0,0,0,0,0},
+  {0,0,0,0,1,0,1,0,0,0,0,0},
+  {0,0,0,1,0,0,1,0,0,0,0,0},
+  {0,0,1,0,0,0,1,0,0,0,0,0},
+  {0,1,0,0,0,0,1,0,0,0,0,0},
+  {1,0,0,0,0,0,1,0,0,0,0,0}
+};
+
+// ---------- WARNING (Moderate level) ----------
+uint8_t warning[8][12] = {
+  {0,0,0,0,0,1,1,0,0,0,0,0},
+  {0,0,0,0,1,1,1,1,0,0,0,0},
+  {0,0,0,1,1,0,0,1,1,0,0,0},
+  {0,0,1,1,0,1,1,0,1,1,0,0},
+  {0,1,1,0,0,1,1,0,0,1,1,0},
+  {1,1,0,0,0,1,1,0,0,0,1,1},
+  {0,0,0,0,0,1,1,0,0,0,0,0},
+  {0,0,0,0,0,1,1,0,0,0,0,0}
+};
+
+// ---------- CROSS (High CO2 / Danger) ----------
+uint8_t cross[8][12] = {
+  {1,0,0,0,0,1,1,0,0,0,0,1},
+  {0,1,0,0,0,1,1,0,0,0,1,0},
+  {0,0,1,0,0,0,0,0,0,1,0,0},
+  {0,0,0,1,0,0,0,0,1,0,0,0},
+  {0,0,0,0,1,0,0,1,0,0,0,0},
+  {0,0,0,0,1,0,0,1,0,0,0,0},
+  {0,0,0,1,0,0,0,0,1,0,0,0},
+  {0,0,1,0,0,0,0,0,0,1,0,0}
+};
+
+void setup() {
+  Serial.begin(9600);
+  matrix.begin();
+  Serial.println("IAQ Monitor - Combustion Source Test");
+}
+
+void loop() {
+  gasValue = analogRead(gasSensor);
+  Serial.print("Gas Value: ");
+  Serial.println(gasValue);
+
+  // CASE 1: Clean / Fresh Air (baseline or after ventilation)
+  if (gasValue < 500) {
+    matrix.renderBitmap(checkMark, 8, 12);
+    Serial.println("Status: Clean Air");
+  }
+  // CASE 2: Moderate Gas Level (source present nearby)
+  else if (gasValue >= 501 && gasValue < 570) {
+    matrix.renderBitmap(warning, 8, 12);
+    Serial.println("Status: Moderate - Gas Detected");
+  }
+  // CASE 3: High CO2 / Dangerous (source directly near sensor)
+  else if (gasValue >= 570) {
+    matrix.renderBitmap(cross, 8, 12);
+    Serial.println("Status: HIGH CO2 - Danger!");
+  }
+  delay(1000);
+}
